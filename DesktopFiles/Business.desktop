@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Business
+Comment=Search Business
+Exec=/usr/bin/search-all-the-things-two Business
+Icon=text-plain
+Terminal=false
+StartupNotify=false

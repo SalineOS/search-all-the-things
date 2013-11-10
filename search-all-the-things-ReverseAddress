@@ -1,0 +1,163 @@
+#!/bin/bash
+# Licensed under the GNU General Public License Version 2
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+####################################################################################################
+## Authored by Anthony Nordquist. https://github.com/SalineOS salinelinux@gmail.com 
+## Copyright 2013 Anthony Nordquist
+
+ScriptName=$(echo "$0" | awk -F '-' '{print $NF}')
+
+## Load translations
+
+LanguageLess="$(echo "$LANG" | awk -F '.' '{print $1}')"
+
+if [ -f /etc/thunar-run-here/Translations/$LanguageLess ]; then
+ . /etc/search-all-the-things/Translations/$LanguageLess
+else
+ . /etc/search-all-the-things/Translations/en_US
+fi
+
+
+Icon=( "--image=user-home" )
+WindowIcon=( "--window-icon=user-home" )
+Title=( "--title=$SATTSEARCH $ScriptName" )
+
+## Create a history file
+mkdir -p $HOME/.search-all-the-things
+
+HistoryFile="$HOME/.search-all-the-things/$ScriptName"
+HistoryFile2="$HOME/.search-all-the-things/$ScriptName-Two"
+
+touch "$HistoryFile"
+touch "$HistoryFile2"
+
+GetTerms () {
+
+## ResetArray
+YadArray=("")
+YadArray2=("")
+
+## Build an array of the history 
+TotalLines=$(cat "$HistoryFile" | sed '/^\s*$/d' | wc -l)
+CurrentLocation="0"
+
+while [ "$CurrentLocation" != "$TotalLines" ]; do
+ CurrentLocation=$(($CurrentLocation + 1))
+ CurrentLine=$(head -n $CurrentLocation "$HistoryFile" | tail -n 1)
+ YadArray=("${YadArray[@]}""$CurrentLine""!")
+done
+
+## Build an array of city or zip code history 
+TotalLines=$(cat "$HistoryFile2" | sed '/^\s*$/d' | wc -l)
+CurrentLocation="0"
+
+while [ "$CurrentLocation" != "$TotalLines" ]; do
+ CurrentLocation=$(($CurrentLocation + 1))
+ CurrentLine=$(head -n $CurrentLocation "$HistoryFile2" | tail -n 1)
+ YadArray2=("${YadArray2[@]}""$CurrentLine""!")
+done
+
+if [ -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
+ SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSTREET:CBE" --field="$SATTCORZ:CBE" --button=$"$SATTENABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}" "${YadArray2[@]}")
+else
+ SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTNORC:CBE" --field="$SATTCORZ:CBE" --button=$"$SATTDISABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}" "${YadArray2[@]}")
+fi
+ret="$?"
+
+if [ "$ret" = "252" ]; then
+ exit 0
+elif [ "$ret" = "7" ]; then
+ exit 0
+elif [ "$ret" = "5" ]; then
+ rm -rf "$HistoryFile"
+ rm -rf "$HistoryFile2"
+ GetTerms
+elif [ "$ret" = "3" ]; then
+ if [ -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
+  rm -rf "$HOME/.search-all-the-things/$ScriptName-No-History"
+  GetTerms
+ else
+  rm -rf "$HistoryFile"
+  rm -rf "$HistoryFile2"
+  touch "$HOME/.search-all-the-things/$ScriptName-No-History"
+  GetTerms
+ fi
+fi
+
+if [ "$SearchTerms" = "" ]; then
+ yad --window-icon="error" --image="error" "${Title[@]}" --text="$SATTNOTERMS" --button=$"gtk-ok:1"
+ GetTerms
+fi
+
+SearchTerms2=$(echo "$SearchTerms" | awk -F 'ReallyLongObscureSeparator' '{print $2}')
+SearchTerms=$(echo "$SearchTerms" | awk -F 'ReallyLongObscureSeparator' '{print $1}')
+
+if [ "$SearchTerms2" = "" ]; then
+ yad --window-icon="error" --image="error" "${Title[@]}" --text="$SATTNOCORZ" --button=$"gtk-ok:1"
+ GetTerms
+fi
+
+}
+
+GetTerms
+
+## Add files to history if enabled
+touch "$HistoryFile"
+touch "$HistoryFile2"
+if [ ! -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
+ if [ "$(cat "$HistoryFile")" != "" ]; then
+  ## Remove all lines in the history that both start and end with the search terms
+  sed -i "s|^$SearchTerms$||g" "$HistoryFile"
+  ## Delete all blank lines from history file 
+  sed -i '/^$/d' "$HistoryFile"
+  ## Actually add the run command to the top of history 
+  sed -i "1 i $SearchTerms" "$HistoryFile"
+ else
+  echo "$SearchTerms">>"$HistoryFile"
+ fi
+
+## Handle the second history file
+ if [ "$(cat "$HistoryFile2")" != "" ]; then
+  ## Remove all lines in the history that both start and end with the search terms
+  sed -i "s|^$SearchTerms2$||g" "$HistoryFile2"
+  ## Delete all blank lines from history file 
+  sed -i '/^$/d' "$HistoryFile2"
+  ## Actually add the run command to the top of history 
+  sed -i "1 i $SearchTerms2" "$HistoryFile2"
+ else
+  echo "$SearchTerms2">>"$HistoryFile2"
+ fi
+
+ if [ "$(head "$HistoryFile")" = "" ]; then
+  echo "$SearchTerms">>"$HistoryFile"
+ fi
+
+ if [ "$(head "$HistoryFile2")" = "" ]; then
+  echo "$SearchTerms2">>"$HistoryFile2"
+ fi
+
+fi
+
+
+SearchTerms=$(echo "$SearchTerms" | sed 's| |+|g')
+SearchTerms2=$(echo "$SearchTerms2" | sed 's| |+|g')
+
+SearchArray=( "$SearchTerms" )
+SearchArray2=( "$SearchTerms2" )
+
+exo-open --launch WebBrowser "http://www.whitepages.com/search/FindNearby?utf8=%E2%9C%93&street=${SearchArray[@]}"&where="${SearchArray2[@]}"" &
+
+exit

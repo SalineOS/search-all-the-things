@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Thesaurus
+Comment=Search Thesaurus
+Exec=/usr/bin/search-all-the-things-two Thesaurus
+Icon=xfce4-dict
+Terminal=false
+StartupNotify=false

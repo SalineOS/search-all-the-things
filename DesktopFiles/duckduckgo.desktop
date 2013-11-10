@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Web - DuckDuckGo
+Comment=Search the web with DuckDuckGo
+Exec=/usr/bin/search-all-the-things-two DuckDuckGo
+Icon=stock_internet
+Terminal=false
+StartupNotify=false

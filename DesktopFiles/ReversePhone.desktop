@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Reverse Phone
+Comment=Search Phone Lookup
+Exec=/usr/bin/search-all-the-things-two ReversePhone
+Icon=phone
+Terminal=false
+StartupNotify=false

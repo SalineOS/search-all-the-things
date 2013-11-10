@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Dictionary
+Comment=Search Dictionary
+Exec=/usr/bin/search-all-the-things-two Dictionary
+Icon=xfce4-dict
+Terminal=false
+StartupNotify=false

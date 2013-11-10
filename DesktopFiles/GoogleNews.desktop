@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google News
+Comment=Search Google News
+Exec=/usr/bin/search-all-the-things-two GoogleNews
+Icon=gtk-info
+Terminal=false
+StartupNotify=false

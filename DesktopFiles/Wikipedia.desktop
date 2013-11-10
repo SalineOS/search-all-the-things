@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wikipedia
+Comment=Search Wikipedia
+Exec=/usr/bin/search-all-the-things-two Wikipedia
+Icon=/usr/share/search-all-the-things/Icons/Wiki.png
+Terminal=false
+StartupNotify=false

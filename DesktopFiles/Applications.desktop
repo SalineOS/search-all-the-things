@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Applications
+Comment=Search Applications
+Exec=/usr/bin/search-all-the-things-two Applications
+Icon=xfce4-appfinder
+Terminal=false
+StartupNotify=false

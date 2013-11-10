@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Reverse Address
+Comment=Search Address Lookup
+Exec=/usr/bin/search-all-the-things-two ReverseAddress
+Icon=user-home
+Terminal=false
+StartupNotify=false

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Lyrics
+Comment=Search Lyrics
+Exec=/usr/bin/search-all-the-things-two Lyrics
+Icon=audio-x-generic
+Terminal=false
+StartupNotify=false

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IMDb
+Comment=Search IMDb
+Exec=/usr/bin/search-all-the-things-two IMDb
+Icon=/usr/share/search-all-the-things/Icons/imdb.png
+Terminal=false
+StartupNotify=false

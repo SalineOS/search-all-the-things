@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=White Pages
+Comment=Search White Pages
+Exec=/usr/bin/search-all-the-things-two WhitePages
+Icon=text-plain
+Terminal=false
+StartupNotify=false

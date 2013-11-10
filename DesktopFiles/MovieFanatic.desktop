@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Movie Fanatic
+Comment=Search Movie Fanatic
+Exec=/usr/bin/search-all-the-things-two MovieFanatic
+Icon=video-x-generic
+Terminal=false
+StartupNotify=false

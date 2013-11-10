@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Images
+Comment=Search Google Images
+Exec=/usr/bin/search-all-the-things-two GoogleImages
+Icon=image-x-generic
+Terminal=false
+StartupNotify=false

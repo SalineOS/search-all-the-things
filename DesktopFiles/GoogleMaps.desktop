@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Maps
+Comment=Search Google Maps
+Exec=/usr/bin/search-all-the-things-two GoogleMaps
+Icon=/usr/share/search-all-the-things/Icons/Map.png
+Terminal=false
+StartupNotify=false

@@ -1,0 +1,17 @@
+export SATTSEARCH="Search"
+
+export SATTDISABLEH="Disable History"
+
+export SATTCLEARH="Clear History"
+
+export SATTENABLEH="Enable History"
+
+export SATTCORZ="In city, state or zip code"
+
+export SATTNOCORZ="You must supply a city, state or zip code"
+
+export SATTNORC="Name or Category"
+
+export SATTPHONE="Phone Number"
+
+export SATTWEATHER="City, zip code or place"

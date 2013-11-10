@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Files
+Comment=Search for files
+Exec=/usr/bin/search-all-the-things-two FilesFolders
+Icon=folder
+Terminal=false
+StartupNotify=false
