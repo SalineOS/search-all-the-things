@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=RSS
+Name=RSS Feeds
 Comment=Search RSS Feeds
 Exec=/usr/bin/search-all-the-things-two RSS
 Icon=/usr/share/search-all-the-things/Icons/rss-feeds.png
