@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Reddit
+Comment=Search Reddit
+Exec=/usr/bin/search-all-the-things-two Reddit
+Icon=/usr/share/search-all-the-things/Icons/Reddit.png
+Terminal=false
+StartupNotify=false

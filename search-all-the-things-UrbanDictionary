@@ -1,0 +1,124 @@
+#!/bin/bash
+# Licensed under the GNU General Public License Version 2
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+####################################################################################################
+## Authored by Anthony Nordquist. https://github.com/SalineOS salinelinux@gmail.com 
+## Copyright 2013 Anthony Nordquist
+
+ScriptName=$(echo "$0" | awk -F '-' '{print $NF}')
+
+## Load translations
+
+LanguageLess="$(echo "$LANG" | awk -F '.' '{print $1}')"
+
+if [ -f /etc/thunar-run-here/Translations/$LanguageLess ]; then
+ . /etc/search-all-the-things/Translations/$LanguageLess
+else
+ . /etc/search-all-the-things/Translations/en_US
+fi
+
+
+Icon=( "--image=xfce4-dict" )
+WindowIcon=( "--window-icon=xfce4-dict" )
+Title=( "--title=$SATTSEARCH $ScriptName" )
+
+## Create a history file
+mkdir -p $HOME/.search-all-the-things
+
+HistoryFile="$HOME/.search-all-the-things/$ScriptName"
+
+touch "$HistoryFile"
+
+GetTerms () {
+
+## ResetArray
+YadArray=("")
+
+## Build an array of the history 
+TotalLines=$(cat "$HistoryFile" | sed '/^\s*$/d' | wc -l)
+CurrentLocation="0"
+
+while [ "$CurrentLocation" != "$TotalLines" ]; do
+ CurrentLocation=$(($CurrentLocation + 1))
+ CurrentLine=$(head -n $CurrentLocation "$HistoryFile" | tail -n 1)
+ YadArray=("${YadArray[@]}""$CurrentLine""!")
+done
+
+if [ -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
+ SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSEARCH:CBE" --button=$"$SATTENABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}")
+else
+ SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSEARCH:CBE" --button=$"$SATTDISABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}")
+fi
+ret="$?"
+
+if [ "$ret" = "252" ]; then
+ exit 0
+elif [ "$ret" = "7" ]; then
+ exit 0
+elif [ "$ret" = "5" ]; then
+ rm -rf "$HistoryFile"
+ GetTerms
+elif [ "$ret" = "3" ]; then
+ if [ -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
+  rm -rf "$HOME/.search-all-the-things/$ScriptName-No-History"
+  GetTerms
+ else
+  rm -rf "$HistoryFile"
+  touch "$HOME/.search-all-the-things/$ScriptName-No-History"
+  GetTerms
+ fi
+fi
+
+if [ "$SearchTerms" = "" ]; then
+ yad --window-icon="error" --image="error" "${Title[@]}" --text="$SATTNOTERMS" --button=$"gtk-ok:1"
+ GetTerms
+fi
+
+SearchTerms=$(echo "$SearchTerms" | awk -F 'ReallyLongObscureSeparator' '{print $1}')
+
+}
+
+GetTerms
+
+## Add files to history if enabled
+touch "$HistoryFile"
+if [ ! -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
+ if [ "$(cat "$HistoryFile")" != "" ]; then
+  ## Remove all lines in the history that both start and end with the search terms
+  sed -i "s|^$SearchTerms$||g" "$HistoryFile"
+  ## Delete all blank lines from history file 
+  sed -i '/^$/d' "$HistoryFile"
+  ## Actually add the run command to the top of history 
+  sed -i "1 i $SearchTerms" "$HistoryFile"
+ else
+  echo "$SearchTerms">>"$HistoryFile"
+ fi
+
+ if [ "$(head "$HistoryFile")" = "" ]; then
+  echo "$SearchTerms">>"$HistoryFile"
+ fi
+
+fi
+
+
+
+SearchTerms=$(echo "$SearchTerms" | sed 's| |+|g')
+
+SearchArray=( "$SearchTerms" )
+
+exo-open --launch WebBrowser "http://www.urbandictionary.com/define.php?term="${SearchArray[@]}"" &
+
+exit

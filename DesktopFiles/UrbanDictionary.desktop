@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Urban Dictionary
+Comment=Search Urban Dictionary
+Exec=/usr/bin/search-all-the-things-two UrbanDictionary
+Icon=xfce4-dict
+Terminal=false
+StartupNotify=false
