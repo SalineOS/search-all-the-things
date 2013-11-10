@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Weather
+Comment=Weather Forecast
+Exec=/usr/bin/search-all-the-things-two Weather
+Icon=/usr/share/search-all-the-things/Icons/Weather.png
+Terminal=false
+StartupNotify=false
