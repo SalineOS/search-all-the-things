@@ -31,8 +31,8 @@ else
 fi
 
 
-Icon=( "--image=/usr/share/search-all-the-things/Icons/YouTube_logo_stacked_dark.png" )
-WindowIcon=( "--window-icon=/usr/share/search-all-the-things/Icons/YouTube_logo_stacked_dark.png" )
+Icon=( "--image=/usr/share/search-all-the-things/Icons/utube.png" )
+WindowIcon=( "--window-icon=/usr/share/search-all-the-things/Icons/utube.png" )
 Title=( "--title=$SATTSEARCH $ScriptName" )
 
 ## Create a history file

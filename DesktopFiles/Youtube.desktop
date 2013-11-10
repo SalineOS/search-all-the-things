@@ -4,6 +4,6 @@ Type=Application
 Name=Youtube
 Comment=Search Youtube
 Exec=/usr/bin/search-all-the-things-two Youtube
-Icon=/usr/share/search-all-the-things/Icons/YouTube_logo_stacked_dark.png
+Icon=/usr/share/search-all-the-things/Icons/utube.png
 Terminal=false
 StartupNotify=false
