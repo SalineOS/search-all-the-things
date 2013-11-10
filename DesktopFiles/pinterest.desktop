@@ -4,6 +4,6 @@ Type=Application
 Name=Pinterest
 Comment=Search Pinterest
 Exec=/usr/bin/search-all-the-things-two Pinterest
-Icon=/usr/share/search-all-the-things/Icons/Pinterest.png
+Icon=/usr/share/search-all-the-things/Icons/pinterest.png
 Terminal=false
 StartupNotify=false
