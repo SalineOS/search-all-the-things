@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Plus
+Comment=Search Google Plus
+Exec=/usr/bin/search-all-the-things-two GooglePlus
+Icon=/usr/share/search-all-the-things/Icons/google-plus.png
+Terminal=false
+StartupNotify=false
