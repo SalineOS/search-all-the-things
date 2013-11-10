@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Twitter
+Comment=Search Twitter
+Exec=/usr/bin/search-all-the-things-two Twitter
+Icon=/usr/share/search-all-the-things/Icons/Twitter.png
+Terminal=false
+StartupNotify=false
