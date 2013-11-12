@@ -20,6 +20,8 @@
 
 ScriptName=$(echo "$0" | awk -F '-' '{print $NF}')
 
+Input="$@"
+
 ## Load translations
 
 LanguageLess="$(echo "$LANG" | awk -F '.' '{print $1}')"
@@ -56,6 +58,10 @@ while [ "$CurrentLocation" != "$TotalLines" ]; do
  CurrentLine=$(head -n $CurrentLocation "$HistoryFile" | tail -n 1)
  YadArray=("${YadArray[@]}""$CurrentLine""!")
 done
+
+if [ "$Input" != "" ]; then
+ YadArray=("$Input""!""${YadArray[@]}") 
+fi
 
 if [ -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
  SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSEARCH:CBE" --button=$"$SATTENABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}")
