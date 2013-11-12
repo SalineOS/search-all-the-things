@@ -158,6 +158,6 @@ SearchTerms2=$(echo "$SearchTerms2" | sed 's| |-|g')
 SearchArray=( "$SearchTerms" )
 SearchArray2=( "$SearchTerms2" )
 
-exo-open --launch WebBrowser "http://www.whitepages.com/business?utf8=%E2%9C%93&key=${SearchArray[@]}"&where="${SearchArray2[@]}"" &
+exo-open --launch WebBrowser "http://www.whitepages.com/business?utf8=%E2%9C%93&key="${SearchArray[@]}"&where="${SearchArray2[@]}"" &
 
 exit
