@@ -5,4 +5,4 @@ Exec=/usr/bin/search-all-the-things
 Name=Search Menu
 Icon=gtk-find
 TryExec=/usr/bin/search-all-the-things
-Categories=Accessories;
+Categories=GTK;Utility;
