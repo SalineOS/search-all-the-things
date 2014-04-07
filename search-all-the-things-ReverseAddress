@@ -71,10 +71,12 @@ while [ "$CurrentLocation" != "$TotalLines" ]; do
 done
 
 if [ -f "$HOME/.search-all-the-things/$ScriptName-No-History" ]; then
- SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSTREET:CBE" --field="$SATTCORZ:CBE" --button=$"$SATTENABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}" "${YadArray2[@]}")
+ SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSEARCH:CBE" --field="$SATTCORZ:CBE" --button=$"$SATTENABLEH!add:3" --button=$"$SATTCLEARH!user-trash:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}" "${YadArray2[@]}")
 else
- SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTNORC:CBE" --field="$SATTCORZ:CBE" --button=$"$SATTDISABLEH:3" --button=$"$SATTCLEARH:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}" "${YadArray2[@]}")
+ SearchTerms=$(yad --form --width="450" --height="125" --editable "${WindowIcon[@]}" "${Icon[@]}" "${Title[@]}" --separator='ReallyLongObscureSeparator' --field="$SATTSEARCH:CBE" --field="$SATTCORZ:CBE" --button=$"$SATTDISABLEH!remove:3" --button=$"$SATTCLEARH!user-trash:5" --button=$"gtk-quit:7" --button=$"gtk-ok:2" "${YadArray[@]}" "${YadArray2[@]}")
 fi
+
+
 ret="$?"
 
 if [ "$ret" = "252" ]; then

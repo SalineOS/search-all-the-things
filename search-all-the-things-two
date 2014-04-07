@@ -23,7 +23,7 @@ Input="$@"
 
 ## Kill the yad window
 
-ToKill=$(pgrep -f "yad --icons --height=600 --width=900 --sort-by-name --single-click --skip-taskbar --on-top --skip-taskbar --undecorated")
+ToKill=$(pgrep -f "yad --icons --height=600 --width=905 --sort-by-name --single-click --skip-taskbar --on-top --skip-taskbar --undecorated --center")
 
 if [ "$ToKill" != "" ]; then
  kill $ToKill

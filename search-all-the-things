@@ -20,13 +20,13 @@
 
 ## End all running versions and exit if search all the things was already running
 
-ToKill=$(pgrep -f "yad --icons --height=600 --width=900 --single-click --skip-taskbar --on-top --skip-taskbar --undecorated")
+ToKill=$(pgrep -f "yad --icons --height=600 --width=905 --single-click --skip-taskbar --on-top --skip-taskbar --undecorated --center")
 
 if [ "$ToKill" != "" ]; then
  kill $ToKill
  exit 0
 fi
 
-yad --icons --height="600" --width="900" --sort-by-name --single-click --skip-taskbar --on-top --skip-taskbar --undecorated --read-dir="/usr/share/search-all-the-things/DesktopFiles" --button=$"gtk-quit:3"
+yad --icons --height="600" --width="905" --sort-by-name --single-click --skip-taskbar --on-top --skip-taskbar --undecorated --center --read-dir="/usr/share/search-all-the-things/DesktopFiles" --button=$"gtk-quit:3"
 
 exit  
